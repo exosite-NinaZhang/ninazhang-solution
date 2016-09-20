@@ -1,3 +1,9 @@
+--#ENDPOINT GET /hello/{name}
+local res = "Hi"
+local q = request.parameters.name
+response.message = res..", "..q
+
+
 --#ENDPOINT POST /timeseries/query
 local res
 local q = request.body.sql
