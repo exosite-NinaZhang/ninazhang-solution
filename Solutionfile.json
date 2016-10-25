@@ -1,4 +1,4 @@
 {
   "custom_api": "sample_api.lua",
-  "custom_api_hook": "_init"
+  "cors": {"origin": ["http://localhost:*"]}
 }
