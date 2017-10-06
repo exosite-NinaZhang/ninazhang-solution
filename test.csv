@@ -1,0 +1,3 @@
+timestamp|ts,weather|m|str,temperature|m|float,city|t,max_or_min_pair|mn,max_or_min_pair|mv|float
+1507256414000,cold,15.4,Taipei,lowest,12.4
+1507257014000,warm,23.7,Tainan,highest,25.3
