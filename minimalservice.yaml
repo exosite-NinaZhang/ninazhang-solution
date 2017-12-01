@@ -1,0 +1,39 @@
+swagger: "2.0"
+
+################################################################################
+#                           Service Metadata                                   #
+################################################################################
+info:
+  version: "1.0"
+  title: My service name
+  description: A full description of the service. Can contain MD tags.
+  contact:
+    name: maintainer name
+    email: maintainer@email.com
+
+################################################################################
+#                            API Information                                   #
+################################################################################
+
+# A hostname with a valid, signed, and active TSL certificate is required.
+host: google.com
+basePath: /
+x-exosite-health-path: /health # This endpoint needs to return 2xx status code. If omitted basePath is used
+
+################################################################################
+#                                Operations                                    #
+################################################################################
+paths:
+  /operation:
+    get:
+      description: At least one operation is required.
+      operationId: myOperation # Used as Scripting function call
+      x-exosite-example: >
+                  -- A valid script example
+                  local result = MinimalService.myOperation()
+      responses:
+        default: # Http status code is not returned to the scripting result
+          description: Return the operation result
+          schema:
+            description: Operation result structure
+type: string
