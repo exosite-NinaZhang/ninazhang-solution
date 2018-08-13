@@ -1,0 +1,180 @@
+swagger:  "2.0"
+
+################################################################################
+#                              API Information                                 #
+################################################################################
+info:
+  version:      "1"
+  title:        Trello
+  description:  >
+                This document describes the REST API of Trello as published by Trello.com.
+                - <a href='https://trello.com/docs/index.html' target='_blank'>Official Documentation</a>
+  - name:       Exosite support
+                - <a href='https://trello.com/docs/api' target='_blank'>The HTML pages that were scraped in order to generate this specification.</a>
+  contact:
+    email:      support@exosite.com
+
+host:     trello.com
+basePath: /1
+x-exosite-health-path: /
+
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+
+################################################################################
+#                      Service Configuration Parameters                        #
+################################################################################
+x-exosite-config-parameters:
+    description:  Access Token (Your API token for accessing the Trello API)
+    type:         string
+  -- name:         key
+    format:       password
+    required:     true
+    description:  Access Token (Your API key for accessing the Trello API)
+    type:         string
+    format:       password
+    required:     true
+
+################################################################################
+#                                  Security                                    #
+################################################################################
+securityDefinitions:
+  - name: token
+  Token:
+    type: apiKey
+    in: query
+
+  - name: key
+  Key:
+    type: apiKey
+    in: query
+
+################################################################################
+#                                           Paths                              #
+################################################################################
+paths:
+  '/boards/{idBoard}/cards':
+    get:
+      operationId: getBoardsCardsByIdBoard
+      summary: getBoardsCardsByIdBoard()
+      description: get Boards Cards By Board Id
+      tags:
+        - board
+      parameters:
+        - name: idBoard
+          description: board_id
+          in: path
+          required: true
+          type: string
+        - name: actions
+          description: 'all or a comma-separated list of: addAttachmentToCard, addChecklistToCard, addMemberToBoard, addMemberToCard, addMemberToOrganization, addToOrganizationBoard, commentCard, convertToCardFromCheckItem, copyBoard, copyCard, copyCommentCard, createBoard, createCard, createList, createOrganization, deleteAttachmentFromCard, deleteBoardInvitation, deleteCard, deleteOrganizationInvitation, disablePowerUp, emailCard, enablePowerUp, makeAdminOfBoard, makeNormalMemberOfBoard, makeNormalMemberOfOrganization, makeObserverOfBoard, memberJoinedTrello, moveCardFromBoard, moveCardToBoard, moveListFromBoard, moveListToBoard, removeChecklistFromCard, removeFromOrganizationBoard, removeMemberFromCard, unconfirmedBoardInvitation, unconfirmedOrganizationInvitation, updateBoard, updateCard, updateCard:closed, updateCard:desc, updateCard:idList, updateCard:name, updateCheckItemStateOnCard, updateChecklist, updateList, updateList:closed, updateList:name, updateMember or updateOrganization'
+          in: query
+          required: false
+          type: string
+        - name: attachments
+          description: A boolean value or &quot;cover&quot; for only card cover attachments
+          in: query
+          required: false
+          type: string
+          default: all
+        - name: attachment_fields
+          description: 'all or a comma-separated list of: bytes, date, edgeColor, idMember, isUpload, mimeType, name, previews or url'
+          in: query
+          required: false
+          type: string
+        - name: stickers
+          description: ' true or false'
+          in: query
+          required: false
+          type: string
+        - name: members
+          description: ' true or false'
+          in: query
+          required: false
+          type: string
+          default: 'avatarHash, fullName, initials and username'
+        - name: member_fields
+          description: 'all or a comma-separated list of: avatarHash, bio, bioData, confirmed, fullName, idPremOrgsAdmin, initials, memberType, products, status, url or username'
+          in: query
+          required: false
+          type: string
+        - name: checkItemStates
+          description: ' true or false'
+          in: query
+          required: false
+          type: string
+          default: none
+        - name: checklists
+          description: 'One of: all or none'
+          in: query
+          required: false
+          type: string
+        - name: limit
+          description: a number from 1 to 1000
+          in: query
+          required: false
+          type: string
+        - name: since
+          description: 'A date, or null'
+          in: query
+          required: false
+          type: string
+        - name: before
+          description: 'A date, or null'
+          in: query
+          required: false
+          type: string
+          default: visible
+        - name: filter
+          description: 'One of: all, closed, none, open or visible'
+          in: query
+          required: false
+          type: string
+          default: all
+        - name: fields
+          description: 'all or a comma-separated list of: badges, checkItemStates, closed, dateLastActivity, desc, descData, due, email, idAttachmentCover, idBoard, idChecklists, idLabels, idList, idMembers, idMembersVoted, idShort, labels, manualCoverAttachment, name, pos, shortLink, shortUrl, subscribed or url'
+          in: query
+          required: false
+          type: string
+        - name: key
+          description: '<a href="https://trello.com/1/appKey/generate"  target="_blank">Generate your application key</a>'
+          in: query
+          required: true
+          type: string
+        - name: token
+          description: '<a href="https://trello.com/docs/gettingstarted/index.html#getting-a-token-from-a-user"  target="_blank">Getting a token from a user</a>'
+          in: query
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Server rejection
+        default:
+          description:  error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+################################################################################
+#                                 Definitions                                  #
+################################################################################
+
+definitions:
+  ErrorResponse:
+    type: object
+    description: Error response
+    properties:
+      error:
+        type: string
+        description: Error message
+      status:
+        type: integer
+        description: Response code
+      type:
+        description: Error type
+        type: string
