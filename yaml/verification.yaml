@@ -1,0 +1,72 @@
+swagger:  "2.0"
+
+################################################################################
+#                              API Information                                 #
+################################################################################
+info:
+  version:      "0.1"
+  title:        verification
+  description:  "QA Test Verification Service"
+  contact:
+    name:       Testing
+    email:      testing@exosite.com
+# during dev, should point to your local machine e.g. event-hub-dev.hosted.exosite.io
+host: ninazhang-20170216.apps.exosite.io
+basePath: /api/v1
+x-exosite-health-path: /health
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+
+################################################################################
+#                                           Paths                              #
+################################################################################
+paths:
+  /qa7640:
+    post:
+      operationId:  qa7640
+      summary:      verify MUR-7640 issue.
+      description:  verify MUR-7640 issue.
+      parameters:
+        - name:        parameters
+          in:          body
+          description: "must be 0> and <1"
+          required:    true
+          schema:
+            type: number
+            description: "must be 0> and <1"
+            minimum: 0
+            exclusiveMinimum: true
+            maximum: 1
+            exclusiveMaximum: true
+      responses:
+        "200":
+          description: The result of sending data to event hub.
+        "400":
+          description: Required parameters are not valid or not provided
+        default:
+          description:  error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+################################################################################
+#                                 Definitions                                  #
+################################################################################
+
+definitions:
+  ErrorResponse:
+    type: object
+    description: Error response
+    properties:
+      error:
+        type: string
+        description: Error message
+      status:
+        type: integer
+        description: Response code
+      type:
+        description: Error type
+        type: string
