@@ -8,12 +8,12 @@ info:
   title:        verification
   description:  "QA Test Verification Service"
   contact:
-    name:       Testing
-    email:      testing@exosite.com
+    name:       Nina
+    email:      happykia530@gmail.com
 # during dev, should point to your local machine e.g. event-hub-dev.hosted.exosite.io
-host: ninazhang-20170216.apps.exosite.io
-basePath: /api/v1
-x-exosite-health-path: /health
+host: 470ef4cdd4872f0a5112a628325122e5.m.pipedream.net
+basePath: /
+x-exosite-health-path: /
 schemes:
   - https
 consumes:
@@ -40,7 +40,7 @@ paths:
             description: "must be 0> and <1"
             minimum: 0
             exclusiveMinimum: true
-            maximum: 1
+            maximum: 10
             exclusiveMaximum: true
       responses:
         "200":
@@ -51,7 +51,17 @@ paths:
           description:  error
           schema:
             $ref: "#/definitions/ErrorResponse"
-
+  /info:
+    get:
+      tags:
+        - insight
+      operationId: info
+      description: Get some info
+      responses:
+        "200":
+          description: Insight Functions successfully listed
+        default:
+          description: Errors
 ################################################################################
 #                                 Definitions                                  #
 ################################################################################
